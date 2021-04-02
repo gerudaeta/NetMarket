@@ -22,11 +22,11 @@ namespace WebApi.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<List<Producto>>> GetProductosAll(string sort)
+        public async Task<ActionResult<List<Producto>>> GetProductosAll(string sort, int? marca, int? categoria)
         {
             // spec = debe incluir la logica de la condicion de la consulta y tambien las relaciones entre las entidades
             // en este caso seria la relacion, entre producto y marca, categoria
-            var spec = new ProductoWithCategoriaAndMarcaSpecification(sort);
+            var spec = new ProductoWithCategoriaAndMarcaSpecification(sort, marca, categoria);
             var productos = await _productoRepository.GetAllWithSpec(spec);
             return Ok(productos);
         }
