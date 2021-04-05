@@ -4,15 +4,15 @@ namespace Core.Specifications
 {
     public class ProductoWithCategoriaAndMarcaSpecification : BaseSpecification<Producto>
     {
-        public ProductoWithCategoriaAndMarcaSpecification(string sort, int? marca, int? categoria)
-            : base(x => (!marca.HasValue || x.MarcaId == marca) && (!categoria.HasValue || x.CategoriaId == categoria))
+        public ProductoWithCategoriaAndMarcaSpecification(ProductoSpecificationParams productoSpecificationParams)
+            : base(x => (!productoSpecificationParams.Marca.HasValue || x.MarcaId == productoSpecificationParams.Marca) && (!productoSpecificationParams.Categoria.HasValue || x.CategoriaId == productoSpecificationParams.Categoria))
         {
             AddInclude(p => p.Categoria);
             AddInclude(p => p.Marca);
 
-            if (!string.IsNullOrEmpty(sort))
+            if (!string.IsNullOrEmpty(productoSpecificationParams.Sort))
             {
-                switch (sort)
+                switch (productoSpecificationParams.Sort)
                 {
                     case "nombreAsc": 
                         AddOrderBy(p => p.Nombre);
