@@ -22,7 +22,7 @@ namespace WebApi.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<List<Producto>>> GetProductosAll(ProductoSpecificationParams productoSpecificationParams)
+        public async Task<ActionResult<List<Producto>>> GetProductosAll([FromQuery] ProductoSpecificationParams productoSpecificationParams)
         {
             // spec = debe incluir la logica de la condicion de la consulta y tambien las relaciones entre las entidades
             // en este caso seria la relacion, entre producto y marca, categoria
