@@ -37,10 +37,15 @@ namespace BusinessLogic.Logic
         {
             return await ApplySpecification(spec).ToListAsync();
         }
-
+        
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return SpecificationEvaluator<T>.GetQuery(_marketDbContext.Set<T>().AsQueryable(), spec);
+        }
+        
+        public async Task<int> CountAsync(ISpecification<T> specification)
+        {
+            return await ApplySpecification(specification).CountAsync();
         }
     }
 }

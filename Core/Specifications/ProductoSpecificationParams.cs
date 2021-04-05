@@ -2,6 +2,7 @@
 {
     public class ProductoSpecificationParams
     {
+        public string Search { get; set; }
         public  int? Marca { get; set; }
         public  int? Categoria { get; set; }
         public string Sort { get; set; }

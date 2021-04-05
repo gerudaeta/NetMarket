@@ -5,7 +5,11 @@ namespace Core.Specifications
     public class ProductoWithCategoriaAndMarcaSpecification : BaseSpecification<Producto>
     {
         public ProductoWithCategoriaAndMarcaSpecification(ProductoSpecificationParams productoSpecificationParams)
-            : base(x => (!productoSpecificationParams.Marca.HasValue || x.MarcaId == productoSpecificationParams.Marca) && (!productoSpecificationParams.Categoria.HasValue || x.CategoriaId == productoSpecificationParams.Categoria))
+            : base(x => 
+                (string.IsNullOrEmpty(productoSpecificationParams.Search) || x.Nombre.Contains(productoSpecificationParams.Search)) &&
+                (!productoSpecificationParams.Marca.HasValue || x.MarcaId == productoSpecificationParams.Marca) && 
+                (!productoSpecificationParams.Categoria.HasValue || x.CategoriaId == productoSpecificationParams.Categoria)
+                )
         {
             AddInclude(p => p.Categoria);
             AddInclude(p => p.Marca);
