@@ -40,6 +40,10 @@ namespace WebApi
             services.AddDbContext<MarketDbContext>(opt => {
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            
+            services.AddDbContext<SeguridadDbContext>(opt => {
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             // Inyeccion
             services.AddTransient<IProductoRepository, ProductoRepository>();
