@@ -35,7 +35,7 @@ namespace WebApi.Controllers
                 return Unauthorized(new CodeErrorResponse(401));
             }
 
-            var usuarioDto = new UsuarioDto
+            var userDto = new UsuarioDto
             {
                 Email = user.Email,
                 Username = user.UserName,
@@ -44,7 +44,35 @@ namespace WebApi.Controllers
                 Apellido = user.Apellido
             };
 
-            return usuarioDto;
+            return userDto;
+        }
+
+        [HttpPost("registrar")]
+        public async Task<ActionResult<UsuarioDto> RegistrarUsuario([FromBody] NuevoUsuarioDto registrarUsuarioDto)
+        {
+            var user = new Usuario
+            {
+                Email = registrarUsuarioDto.Email,
+                UserName = registrarUsuarioDto.Username,
+                Nombre = registrarUsuarioDto.Nombre,
+                Apellido = registrarUsuarioDto.Apellido
+            };
+
+            var resultado = await _userManager.CreateAsync(user, registrarUsuarioDto.Password);
+
+            if (!resultado.Succeeded)
+            {
+                return BadRequest(new CodeErrorResponse(400));
+            }
+
+            return new UsuarioDto
+            {
+                Email = user.Email,
+                Username = user.UserName,
+                Token = "Token",
+                Nombre = user.Nombre,
+                Apellido = user.Apellido
+            };
         }
     }
 }
