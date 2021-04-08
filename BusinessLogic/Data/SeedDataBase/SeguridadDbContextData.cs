@@ -7,7 +7,7 @@ namespace BusinessLogic.Data
 {
     public class SeguridadDbContextData
     {
-        private const string passwordUsuario = "german27=";
+        private const string passwordUsuario = "germanU27=";
             
         public static async Task SeedUserAsync(UserManager<Usuario> userManager)
         {

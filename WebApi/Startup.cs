@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Entities;
+using Microsoft.AspNetCore.Identity;
 using WebApi.Dtos;
 using WebApi.Middleware;
 
@@ -30,6 +32,13 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = services.AddIdentityCore<Usuario>();
+            builder = new IdentityBuilder(builder.UserType, builder.Services);
+            builder.AddEntityFrameworkStores<SeguridadDbContext>();
+            builder.AddSignInManager<SignInManager<Usuario>>();
+
+            services.AddAuthentication();
+            
             // AutoMapper
             services.AddAutoMapper(typeof(MappingProfiles));
             
@@ -42,7 +51,7 @@ namespace WebApi
             });
             
             services.AddDbContext<SeguridadDbContext>(opt => {
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                opt.UseSqlServer(Configuration.GetConnectionString("IdentitySeguridad"));
             });
 
             // Inyeccion
