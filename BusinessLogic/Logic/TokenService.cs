@@ -28,7 +28,8 @@ namespace BusinessLogic.Logic
                 new(JwtRegisteredClaimNames.Email, usuario.Email),
                 new(JwtRegisteredClaimNames.Name, usuario.Nombre),
                 new(JwtRegisteredClaimNames.FamilyName, usuario.Apellido),
-                new("username", usuario.UserName)
+                new("username", usuario.UserName),
+                new("id", usuario.Id)
             };
 
             var credencials = new SigningCredentials(_symetricSecurityKey, SecurityAlgorithms.HmacSha512Signature);
