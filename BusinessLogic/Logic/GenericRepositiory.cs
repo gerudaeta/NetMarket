@@ -47,5 +47,18 @@ namespace BusinessLogic.Logic
         {
             return await ApplySpecification(specification).CountAsync();
         }
+
+        public async Task<int> Add(T entity)
+        {
+            _marketDbContext.Set<T>().Add(entity);
+            return await _marketDbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> Update(T entity)
+        {
+            _marketDbContext.Set<T>().Attach(entity);
+            _marketDbContext.Entry(entity).State = EntityState.Modified;
+            return await _marketDbContext.SaveChangesAsync();
+        }
     }
 }

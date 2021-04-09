@@ -63,6 +63,33 @@ namespace WebApi.Controllers
             return Ok(productoDto);
 
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Producto>> NuevoProducto(Producto producto)
+        {
+            var resultado = await _productoRepository.Add(producto);
+
+            if (resultado == 0)
+            {
+                throw new Exception("No se inserto el producto");
+            }
+
+            return Ok(producto);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Producto>> ModificarProductoPorId(int id, Producto producto)
+        {
+            producto.Id = id;
+            var resultado = await _productoRepository.Update(producto);
+            
+            if (resultado == 0)
+            {
+                throw new Exception("No se modifico el producto");
+            }
+
+            return Ok(producto);
+        }
         
     }
 }
