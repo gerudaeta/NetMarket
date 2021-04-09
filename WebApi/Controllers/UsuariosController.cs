@@ -48,7 +48,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("registrar")]
-        public async Task<ActionResult<UsuarioDto> RegistrarUsuario([FromBody] NuevoUsuarioDto registrarUsuarioDto)
+        public async Task<ActionResult<UsuarioDto>> RegistrarUsuario([FromBody] NuevoUsuarioDto registrarUsuarioDto)
         {
             var user = new Usuario
             {
