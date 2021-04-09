@@ -18,6 +18,7 @@ using Core.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using WebApi.Dtos;
 using WebApi.Middleware;
 
@@ -69,9 +70,18 @@ namespace WebApi
                 opt.UseSqlServer(Configuration.GetConnectionString("IdentitySeguridad"));
             });
 
+            services.AddSingleton<IConnectionMultiplexer>(x =>
+            {
+                var configuracionRedis = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"), true);
+                return ConnectionMultiplexer.Connect(configuracionRedis);
+            });
+
             // Inyeccion
             services.AddTransient<IProductoRepository, ProductoRepository>();
+            
             services.AddControllers();
+
+            services.AddScoped<ICarritoCompraRepository, CarritoCompraRepository>();
 
             services.AddCors(opt =>
             {
